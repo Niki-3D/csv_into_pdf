@@ -1,0 +1,19 @@
+{
+  "name": "csv_into_pdf",
+  "version": "1.0.0",
+  "description": "An automated system that generates printable product catalogs in PDF format from CSV data and HTML/CSS templates. Perfect for B2B clients like bookstores or stationery shops who need to generate professional product catalogs.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "commander": "^14.0.0",
+    "csv-parse": "^5.6.0",
+    "fs-extra": "^11.3.0",
+    "papaparse": "^5.5.3",
+    "puppeteer": "^24.11.2"
+  }
+}
