@@ -32,13 +32,11 @@ async function readCSV(filePath) {
 
 async function getImageAsBase64(imagePath) {
     try {
-        // First try relative to project root
         let absolutePath = path.resolve(PROJECT_ROOT, imagePath);
         console.log(`Trying to read image from: ${absolutePath}`);
 
         if (!await fs.pathExists(absolutePath)) {
             console.error(`Image not found at: ${absolutePath}`);
-            // Try without the 'data' prefix since we're already in the project root
             const alternativePath = path.resolve(PROJECT_ROOT, imagePath.replace(/^data\//, ''));
             console.log(`Trying alternative path: ${alternativePath}`);
             
@@ -63,42 +61,63 @@ async function getImageAsBase64(imagePath) {
     }
 }
 
+async function generateProductHTML(product, imageData) {
+    const placeholderImage = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2VlZSIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMTYiIGZpbGw9IiM5OTkiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIj5JbWFnZSBub3QgZm91bmQ8L3RleHQ+PC9zdmc+';
+    
+    return `
+        <div class="product-card">
+            <div class="product-image-container">
+                <img class="product-image" src="${imageData || placeholderImage}" alt="${product['Product Name']}">
+            </div>
+            <h2 class="product-name">${product['Product Name']}</h2>
+            <div class="product-category">${product['Category']}</div>
+            <p class="product-description">${product['Description']}</p>
+            <div class="button-container">
+                <a class="product-link" href="${product['Shop Link']}">View Product</a>
+            </div>
+        </div>
+    `;
+}
+
 async function generateHTML(products, template) {
     const templateContent = await fs.readFile(template, 'utf-8');
-    const productsPerPage = 4; // 2x2 grid
     let pages = [];
+    let currentPage = 1;
 
-    // Add cover page
+    // Add cover page with first product
+    const firstProduct = products[0];
+    const firstProductImage = await getImageAsBase64(firstProduct['Image Path']);
     pages.push(`
         <div class="page cover-page">
-            <h1 class="cover-title">Product Catalog</h1>
-            <p class="cover-subtitle">Generated on ${new Date().toLocaleDateString()}</p>
+            <div class="cover-content">
+                <h1 class="cover-title">Product Catalog</h1>
+                <p class="cover-subtitle">Generated on ${new Date().toLocaleDateString()}</p>
+            </div>
+            <div class="product-grid single">
+                ${await generateProductHTML(firstProduct, firstProductImage)}
+            </div>
+            <div class="page-number">${currentPage}</div>
         </div>
     `);
 
-    // Generate product pages
-    for (let i = 0; i < products.length; i += productsPerPage) {
-        const pageProducts = products.slice(i, i + productsPerPage);
+    // Generate remaining pages with 4 products each
+    for (let i = 1; i < products.length; i += 4) {
+        currentPage++;
+        const pageProducts = products.slice(i, i + 4);
         const productHTML = await Promise.all(pageProducts.map(async product => {
             const imageData = await getImageAsBase64(product['Image Path']);
-            const placeholderImage = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2VlZSIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMTYiIGZpbGw9IiM5OTkiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIj5JbWFnZSBub3QgZm91bmQ8L3RleHQ+PC9zdmc+';
-            
-            return `
-                <div class="product-card">
-                    <img class="product-image" src="${imageData || placeholderImage}" alt="${product['Product Name']}">
-                    <h2 class="product-name">${product['Product Name']}</h2>
-                    <div class="product-category">${product['Category']}</div>
-                    <p class="product-description">${product['Description']}</p>
-                    <a class="product-link" href="${product['Shop Link']}">View Product</a>
-                </div>
-            `;
+            return generateProductHTML(product, imageData);
         }));
 
         pages.push(`
             <div class="page">
+                <div class="catalog-header">
+                    <h2>Our Products</h2>
+                </div>
                 <div class="product-grid">
                     ${productHTML.join('')}
                 </div>
+                <div class="page-number">${currentPage}</div>
             </div>
         `);
     }

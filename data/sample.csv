@@ -1,6 +1,6 @@
 Product Name,Category,Description,Image Path,Shop Link
-Classic Notebook,Stationery,"High-quality hardcover notebook with 240 pages of premium paper, perfect for journaling and note-taking.",data/images/cat.jpg,https://example.com/products/classic-notebook
-Fountain Pen Set,Writing,"Elegant fountain pen set with fine nib and converter, includes 3 ink cartridges.",data/images/cat1.jpg,https://example.com/products/fountain-pen-set
-Art Sketchbook,Art Supplies,"Professional-grade sketchbook with 100 sheets of acid-free paper, ideal for all drawing mediums.",data/images/cat2.jpg,https://example.com/products/art-sketchbook
-Desk Organizer,Office,"Modern desk organizer with multiple compartments for stationery and accessories.",data/images/cat3.jpg,https://example.com/products/desk-organizer
-Watercolor Set,Art Supplies,"24-color watercolor paint set with mixing palette and fine brush.",data/images/cat4.jpg,https://example.com/products/watercolor-set 
+Lion King Cat,Costume Cats,"A majestic cat wearing a lion's mane hat that makes them look like the king of the jungle",data/images/cat.jpg,https://example.com/products/lion-king-cat
+Happy Whiskers,Cheerful Cats,"An adorable cat with the sweetest smile that can brighten anyone's day",data/images/cat1.jpg,https://example.com/products/happy-whiskers
+Grumpy Morning,Moody Cats,"A hilariously grumpy cat who's clearly been woken up from their nap too early",data/images/cat2.jpg,https://example.com/products/grumpy-morning
+Sleepy Whiskers,Relaxed Cats,"A peaceful cat showing the art of perfect cat naps, completely unbothered by the world",data/images/cat3.jpg,https://example.com/products/sleepy-whiskers
+Captain Whiskers,Professional Cats,"A distinguished cat in a pilot's outfit ready for takeoff",data/images/cat4.jpg,https://example.com/products/captain-whiskers 
