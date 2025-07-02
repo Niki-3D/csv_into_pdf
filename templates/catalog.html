@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Catalog</title>
+    <style>
+        @page {
+            margin: 0;
+            size: A4;
+        }
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+        }
+        .page {
+            width: 210mm;
+            height: 297mm;
+            padding: 20mm;
+            margin: 0 auto;
+            box-sizing: border-box;
+            page-break-after: always;
+        }
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+        .product-card {
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 15px;
+            background: white;
+        }
+        .product-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+        .product-name {
+            font-size: 18px;
+            font-weight: bold;
+            margin: 10px 0;
+            color: #333;
+        }
+        .product-category {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+        .product-description {
+            font-size: 14px;
+            line-height: 1.4;
+            color: #444;
+            margin-bottom: 10px;
+        }
+        .product-link {
+            color: #0066cc;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        .cover-page {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+        }
+        .cover-title {
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+        .cover-subtitle {
+            font-size: 18px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <!-- Template will be populated dynamically -->
+</body>
+</html> 

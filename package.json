@@ -1,19 +1,25 @@
 {
-  "name": "csv_into_pdf",
+  "name": "csv-into-pdf",
   "version": "1.0.0",
-  "description": "An automated system that generates printable product catalogs in PDF format from CSV data and HTML/CSS templates. Perfect for B2B clients like bookstores or stationery shops who need to generate professional product catalogs.",
-  "main": "index.js",
+  "description": "Generate PDF catalogs from CSV data with customizable templates",
+  "main": "src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node src/index.js",
+    "generate": "node src/index.js"
   },
-  "keywords": [],
+  "keywords": [
+    "pdf",
+    "catalog",
+    "csv",
+    "generator",
+    "puppeteer"
+  ],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
-    "commander": "^14.0.0",
-    "csv-parse": "^5.6.0",
-    "fs-extra": "^11.3.0",
-    "papaparse": "^5.5.3",
-    "puppeteer": "^24.11.2"
+    "commander": "^11.1.0",
+    "csv-parse": "^5.5.3",
+    "fs-extra": "^11.2.0",
+    "puppeteer": "^21.7.0"
   }
 }

@@ -1,0 +1,6 @@
+Product Name,Category,Description,Image Path,Shop Link
+Classic Notebook,Stationery,"High-quality hardcover notebook with 240 pages of premium paper, perfect for journaling and note-taking.",data/cat.jpg,https://example.com/products/classic-notebook
+Fountain Pen Set,Writing,"Elegant fountain pen set with fine nib and converter, includes 3 ink cartridges.",data/cat1.jpg,https://example.com/products/fountain-pen-set
+Art Sketchbook,Art Supplies,"Professional-grade sketchbook with 100 sheets of acid-free paper, ideal for all drawing mediums.",data/cat2.jpg,https://example.com/products/art-sketchbook
+Desk Organizer,Office,"Modern desk organizer with multiple compartments for stationery and accessories.",data/cat3.jpg,https://example.com/products/desk-organizer
+Watercolor Set,Art Supplies,"24-color watercolor paint set with mixing palette and fine brush.",data/images/watercolor.jpg,https://example.com/products/watercolor-set 
