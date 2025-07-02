@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Product Catalog</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; padding: 0; }
+    .product-page { page-break-after: always; width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+    .product-img { max-width: 300px; max-height: 300px; margin-bottom: 20px; }
+    .product-title { font-size: 2em; font-weight: bold; margin-bottom: 10px; }
+    .product-category { color: #888; margin-bottom: 10px; }
+    .product-description { margin-bottom: 20px; }
+    .product-link { color: #007bff; text-decoration: none; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <div class="product-page">
+    <img class="product-img" src="{{ImageURL}}" alt="{{Name}}">
+    <div class="product-title">{{Name}}</div>
+    <div class="product-category">{{Category}}</div>
+    <div class="product-description">{{Description}}</div>
+    <a class="product-link" href="{{ShopLink}}">View Product</a>
+  </div>
+</body>
+</html> 
