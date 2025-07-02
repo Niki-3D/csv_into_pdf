@@ -13,8 +13,10 @@ program
 
 const options = program.opts();
 
-// Default paths
-const PROJECT_ROOT = path.join(__dirname, '..');
+// Default paths and configuration
+const PROJECT_ROOT = path.resolve(__dirname, '..');
+console.log('Project root:', PROJECT_ROOT);
+
 const defaultTemplate = path.join(PROJECT_ROOT, 'templates', 'catalog.html');
 const inputPath = options.input || path.join(PROJECT_ROOT, 'data', 'sample.csv');
 const outputPath = options.output || path.join(PROJECT_ROOT, 'output', 'catalog.pdf');
@@ -30,13 +32,22 @@ async function readCSV(filePath) {
 
 async function getImageAsBase64(imagePath) {
     try {
-        // Resolve path relative to project root
-        const absolutePath = path.resolve(PROJECT_ROOT, imagePath);
-        console.log(`Reading image from: ${absolutePath}`);
+        // First try relative to project root
+        let absolutePath = path.resolve(PROJECT_ROOT, imagePath);
+        console.log(`Trying to read image from: ${absolutePath}`);
 
         if (!await fs.pathExists(absolutePath)) {
-            console.error(`Image file not found: ${absolutePath}`);
-            return null;
+            console.error(`Image not found at: ${absolutePath}`);
+            // Try without the 'data' prefix since we're already in the project root
+            const alternativePath = path.resolve(PROJECT_ROOT, imagePath.replace(/^data\//, ''));
+            console.log(`Trying alternative path: ${alternativePath}`);
+            
+            if (await fs.pathExists(alternativePath)) {
+                absolutePath = alternativePath;
+            } else {
+                console.error(`Image not found at alternative path: ${alternativePath}`);
+                return null;
+            }
         }
 
         const imageBuffer = await fs.readFile(absolutePath);
@@ -44,7 +55,7 @@ async function getImageAsBase64(imagePath) {
         const extension = path.extname(imagePath).toLowerCase().substring(1);
         const mimeType = extension === 'jpg' || extension === 'jpeg' ? 'jpeg' : extension;
         
-        console.log(`Successfully loaded image: ${imagePath}`);
+        console.log(`Successfully loaded image: ${absolutePath}`);
         return `data:image/${mimeType};base64,${base64}`;
     } catch (error) {
         console.error(`Error reading image ${imagePath}:`, error.message);
@@ -121,12 +132,15 @@ async function generatePDF(html, outputPath) {
 
 async function main() {
     try {
+        console.log('Starting catalog generation...');
+        
         // Ensure output directory exists
         await fs.ensureDir(path.dirname(outputPath));
 
         // Read and parse CSV
-        console.log('Reading CSV file...');
+        console.log('Reading CSV file from:', inputPath);
         const products = await readCSV(inputPath);
+        console.log('Found', products.length, 'products');
 
         // Generate HTML
         console.log('Generating HTML...');
